@@ -22,7 +22,7 @@ Say it once, then start working immediately. Don't wait for confirmation — if 
 ## 1. Pick the work source (launch arg)
 
 - **No arg / "this" / "current task"** → keep driving whatever is already in flight. Use the existing TodoWrite list if there is one; otherwise build one from the conversation.
-- **A list is named** (Jira filter, a TODO.md path, "my todos", a backlog) → pull items from it into a TodoWrite list and drain top-to-bottom. Skip items already done. For Jira, use the existing jira skills/MCP to fetch; for a file, read it.
+- **A list is named** (an issue tracker like Jira/Linear/GitHub, a TODO.md path, "my todos", a backlog) → pull items from it into a TodoWrite list and drain top-to-bottom. Skip items already done. Use whatever tooling is available to fetch it (an MCP server, a CLI like `gh`, or just reading the file).
 
 Either way: maintain a TodoWrite list so progress is visible when they glance back.
 
@@ -31,7 +31,7 @@ Either way: maintain a TodoWrite list so progress is visible when they glance ba
 For each task:
 
 1. Mark it `in_progress` in TodoWrite.
-2. Do the work. Follow all normal project rules (CLAUDE.md, docs-ship-with-change, separate commits, use `cn()`, no DB migrations, etc. — coffee mode does NOT relax quality or safety rules).
+2. Do the work to this project's own standards — whatever its conventions, agent instructions (CLAUDE.md / AGENTS.md / etc.), tests, and commit hygiene normally require. Coffee mode does NOT relax quality or safety rules.
 3. Hit a fork in the road? → **decide + log** (see §3). Never stop.
 4. Verify your own work the way you normally would (build, tests, render-and-read). Coffee mode means *unattended*, not *unchecked*.
 5. Mark `completed`. Next task.
@@ -55,7 +55,7 @@ Don't log trivial stuff (variable names, obvious imports). Log real decisions: a
 Stop and wait for the user **only** for actions that are irreversible, cost money, or go outward. Everything else: decide and proceed.
 
 - Deleting data you didn't create, or `git push --force` to a shared branch / main.
-- DB migrations or destructive SQL (project rule: user owns when migrations run).
+- DB migrations or destructive SQL.
 - Anything that spends money or changes billing/subscriptions for real.
 - Sending something outward: email, Slack, a published PR comment, a deploy to prod.
 - Committing secrets, or an action you genuinely can't reason about the blast radius of.
@@ -73,4 +73,4 @@ Then ask what's next. Don't bury the open questions.
 
 ## Rules coffee mode does NOT relax
 
-Autonomy is about *not asking*, not about *cutting corners*. Still applies in full: TDD/verification, docs-ship-with-the-change, separate commits for separate fixes, no auto-sitemap, no DB migrations, `cn()` for classes, all CLAUDE.md/AGENTS.md rules. If anything, be *more* careful — nobody's watching.
+Autonomy is about *not asking*, not about *cutting corners*. Everything the project normally expects still applies in full: its tests and verification, its documentation rules, its commit and review hygiene, and whatever is written in its CLAUDE.md / AGENTS.md / contributing guide. If anything, be *more* careful — nobody's watching.
