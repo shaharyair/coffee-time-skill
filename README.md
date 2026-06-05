@@ -1,5 +1,7 @@
 # Coffee Time ☕
 
+![Coffee Time — the agent keeps working while you step away for coffee](hero.png)
+
 An agent skill for [Claude Code](https://claude.com/claude-code) (and any tool that reads `SKILL.md`). Go get coffee. The agent keeps working without bugging you.
 
 ## What it does
