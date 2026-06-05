@@ -33,7 +33,7 @@ For each task:
 1. Mark it `in_progress` in TodoWrite.
 2. Do the work to this project's own standards — whatever its conventions, agent instructions (CLAUDE.md / AGENTS.md / etc.), tests, and commit hygiene normally require. Coffee mode does NOT relax quality or safety rules.
 3. Hit a fork in the road? → **decide + log** (see §3). Never stop.
-4. Verify your own work the way you normally would (build, tests, render-and-read). Coffee mode means *unattended*, not *unchecked*.
+4. Verify your own work the way you normally would (build it, run the tests, exercise the change). Coffee mode means *unattended*, not *unchecked*.
 5. Mark `completed`. Next task.
 
 Keep going until the list is empty, you hit a hard-stop (§4), or the user comes back.
