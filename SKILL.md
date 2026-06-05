@@ -1,6 +1,6 @@
 ---
 name: coffee-time
-description: Autonomous work mode — keep working through a task without bothering the user for clarification, and stop when the work is genuinely done. When unsure, pick a sensible default, log the decision, and keep going; only a short hard-stop list (irreversible/costly/outward-facing actions) is allowed to interrupt mid-flight. Use when the user says "coffee time", "coffee mode", "I'm getting coffee", "keep working without me", "go autonomous", "don't bother me", "work on this while I'm away", "autopilot", or any phrasing about working unattended for a while. Takes an optional source, defaulting to the current task, or point it at a list (Jira filter, TODO file, todo list) to drain a backlog. Note that this skill sets BEHAVIOR only — it cannot disable permission prompts, so it tells the user to switch to acceptEdits mode on launch.
+description: Autonomous work mode — keep working through a task without bothering the user for clarification, and stop when the work is genuinely done. When unsure, pick a sensible default, log the decision, and keep going; only a short hard-stop list (irreversible/costly/outward-facing actions) is allowed to interrupt mid-flight. Use when the user says "coffee time", "coffee mode", "I'm getting coffee", "keep working without me", "go autonomous", "don't bother me", "work on this while I'm away", "autopilot", or any phrasing about working unattended for a while. Takes an optional source, defaulting to the current task, or point it at a list (Jira filter, TODO file, todo list) to drain a backlog. Note that this skill sets BEHAVIOR only — it cannot disable permission prompts, so it tells the user to put their agent into an auto-approve mode on launch (acceptEdits in Claude Code).
 ---
 
 # Coffee Time ☕
@@ -11,30 +11,30 @@ The user is stepping away. Keep working. Don't freeze waiting for them. When you
 
 ## Hard truth on launch: flip the permission mode yourself? No.
 
-This skill controls *behavior* (decide vs. ask). It **cannot** turn off permission prompts — those are harness-level. If the user is in `default` permission mode, you'll still freeze on the first file write asking permission, which kills coffee mode dead.
+This skill controls *behavior* (decide vs. ask). It **cannot** turn off permission prompts — those live in the agent/harness, not in a skill. If your agent stops to confirm every file write or command, it'll freeze on the first one and coffee mode dies on the spot. The human has to put the agent into an auto-approve mode first.
 
-So the FIRST thing you do when this skill loads:
+So the FIRST thing you do when this skill loads is tell them, in one line, how to do that for whatever agent they're running. For example:
 
-> "☕ Coffee time. One thing I can't do myself — flip to **acceptEdits** so I don't freeze on permission prompts. Hit **Shift+Tab** until it says `accept edits on`, then go enjoy. I'll take it from here."
+> "☕ Coffee time. One thing I can't do myself — put me in an auto-approve mode so I don't freeze on permission prompts. (In Claude Code: hit **Shift+Tab** until it says `accept edits on`.) Then go enjoy. I'll take it from here."
 
 Say it once, then start working immediately. Don't wait for confirmation — if a prompt blocks you later, that's their cue.
 
 ## 1. Pick the work source (launch arg)
 
-- **No arg / "this" / "current task"** → keep driving whatever is already in flight. Use the existing TodoWrite list if there is one; otherwise build one from the conversation.
-- **A list is named** (an issue tracker like Jira/Linear/GitHub, a TODO.md path, "my todos", a backlog) → pull items from it into a TodoWrite list and drain top-to-bottom. Skip items already done. Use whatever tooling is available to fetch it (an MCP server, a CLI like `gh`, or just reading the file).
+- **No arg / "this" / "current task"** → keep driving whatever is already in flight. Reuse the existing task list if there is one; otherwise build one from the conversation.
+- **A list is named** (an issue tracker like Jira/Linear/GitHub, a TODO.md path, "my todos", a backlog) → pull items from it into a task list and drain top-to-bottom. Skip items already done. Use whatever tooling is available to fetch it (an MCP server, a CLI like `gh`, or just reading the file).
 
-Either way: maintain a TodoWrite list so progress is visible when they glance back.
+Either way: keep a visible task list (use your agent's todo tool — `TodoWrite` in Claude Code — if it has one) so progress is legible when they glance back.
 
 ## 2. The core loop
 
 For each task:
 
-1. Mark it `in_progress` in TodoWrite.
+1. Mark it in-progress on the task list.
 2. Do the work to this project's own standards — whatever its conventions, agent instructions (CLAUDE.md / AGENTS.md / etc.), tests, and commit hygiene normally require. Coffee mode does NOT relax quality or safety rules.
 3. Hit a fork in the road? → **decide + log** (see §3). Never stop.
 4. Verify your own work the way you normally would (build it, run the tests, exercise the change). Coffee mode means *unattended*, not *unchecked*.
-5. Mark `completed`. Next task.
+5. Mark it done. Next task.
 
 Keep going until the list is empty, you hit a hard-stop (§4), or the user comes back.
 

@@ -25,11 +25,11 @@ Or copy `skills/coffee-time/SKILL.md` into your `~/.claude/skills/coffee-time/`.
 
 ### One catch you have to do yourself
 
-A skill controls the agent's *behavior*, not the harness. It **cannot** turn off permission prompts. So the first thing it does is tell you:
+A skill controls the agent's *behavior*, not the harness. It **cannot** turn off permission prompts. So the first thing it does is tell you to put your agent into an auto-approve mode:
 
-> Hit **Shift+Tab** until it says `accept edits on`, then go enjoy.
+> In Claude Code: hit **Shift+Tab** until it says `accept edits on`, then go enjoy.
 
-Without that, the agent still freezes on the first file write asking permission. Brain (skill) plus hands (acceptEdits) plus legs (its task list). You flip the one switch, it does the rest.
+(Other agents have their own equivalent.) Without it, the agent still freezes on the first file write asking permission. Brain (the skill) plus hands (auto-approve) plus legs (its task list). You flip the one switch, it does the rest.
 
 ## What it will NOT do
 
